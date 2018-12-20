@@ -10,13 +10,15 @@ var methodOverride = require('method-override')
 app.use(methodOverride('_method'))
 var con ;
 
-const userSchema= new Schema({
-	userid: {type:String, required:true, trim:true,index:true,unique:true},
-	chips: {type:Number}
+const productSchema = new Schema({
+	title: {type:String},
+    review: {type:Number},
+    price: {type:String},
+    stock: {type:Number},
+    description: {type:String}
 });
 
-const userModel = mongoose.model('users',userSchema);
-const alex = new userModel({userid:'Clink',chips:22000,regdate:Date.now});
+const productModel = mongoose.model('product',productSchema);
 const cb = function(err){
 	if(!err)
 		console.log("Connection Opened");
@@ -39,15 +41,18 @@ app.listen(port, () => console.log(`Listening on port ${port}!`))
         if (err) return console.log(err)
        res.render('index', {users: docs})
       })
-      userModel.find(echoRecords)
+      productModel.find(echoRecords)
   })
 
 
 
   app.post('/new', function(req, res){
-	new userModel({
-		userid    : req.body.userid,
-		chips   : req.body.chips				
+	new productModel({
+        title: req.body.title,
+        review: req.body.review,
+        price: req.body.price,
+        stock: req.body.stock,
+        description: req.body.description				
 	}).save(function(err, doc){
 		if(err) res.json(err);
         else  
@@ -58,7 +63,7 @@ app.listen(port, () => console.log(`Listening on port ${port}!`))
 
 
 app.get('/view/:id/delete', function(req, res){
-    userModel.deleteOne({_id: req.params.id}, 
+    productModel.deleteOne({_id: req.params.id}, 
 	   function(err){
 		if(err) res.json(err);
 		else    res.redirect('/view');
@@ -71,7 +76,7 @@ app.get('/view/:id/edit', function(req, res){
         if (err) return console.log(err)
        res.render('edit', {users: docs})
       })
-      userModel.find({_id:req.params.id},echoRecords); 
+      productModel.find({_id:req.params.id},echoRecords); 
 	
 }); 
 
@@ -81,15 +86,18 @@ app.get('/view/:id', (req, res) => {
         if (err) return console.log(err)
        res.render('show', {users: docs})
       })
-      userModel.find({_id:req.params.id},echoRecords); 
+      productModel.find({_id:req.params.id},echoRecords); 
   })
  
 
 app.put('/view/:id', function(req, res){
-       userModel.findOneAndUpdate({_id: req.params.id},  
+       productModel.findOneAndUpdate({_id: req.params.id},  
         { $set:
-            {userid: req.body.userid,
-            chips  : req.body.chips
+            {title: req.body.title,
+                review: req.body.review,
+                price: req.body.price,
+                stock: req.body.stock,
+                description: req.body.description		
                    }}, 
                    function(err, docs){
                      if(err) res.json(err);

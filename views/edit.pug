@@ -2,13 +2,21 @@ a(href='/') Home
 
 ul
 each user in users
- li #{user.userid}
- li #{user.chips}
+ li #{user.title}
 
- h1 Editing #{user.userid}'s profile!
+ h1 Editing #{user.title}'s Product
  form(method="POST" action="/view/"+user._id+ "?_method=PUT") 
-  label(for='userid') UserId:
-  input(type="text", name="userid", value=user.userid)
-  label(for='chips') Chips :
-  input(type="number", name="chips", value=user.chips)
+  label(for='title') Product Title:
+  input(type="text", name="title", value=user.title)
+  label(for='review') Total Review :
+  input(type="number", name="review", value=user.review)
+  label(for='price') Price :
+  input(type="number", name="price", value=user.price)
+  label(for='stock') Stock :
+  input(type="number", name="stock", value=user.stock)
+  label(for='description') Description :
+  input(type="text", name="description", value=user.description)
   input(type="submit")
+
+
+	
