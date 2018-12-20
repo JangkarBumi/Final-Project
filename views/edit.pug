@@ -1,0 +1,14 @@
+a(href='/') Home
+
+ul
+each user in users
+ li #{user.userid}
+ li #{user.chips}
+
+ h1 Editing #{user.userid}'s profile!
+ form(method="POST" action="/view/"+user._id+ "?_method=PUT") 
+  label(for='userid') UserId:
+  input(type="text", name="userid", value=user.userid)
+  label(for='chips') Chips :
+  input(type="number", name="chips", value=user.chips)
+  input(type="submit")

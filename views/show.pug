@@ -1,0 +1,11 @@
+a(href='/view') View All
+
+ul
+each user in users
+ li
+  a(href='/view/' + user._id +'/edit') Edit  
+ li 
+  a(href='/view/' + user._id +'/delete') Delete
+  p #{user.userid}  
+  p #{user.chips}  
+
