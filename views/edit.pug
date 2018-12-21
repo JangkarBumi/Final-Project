@@ -2,8 +2,6 @@ a(href='/') Home
 
 ul
 each user in users
- li #{user.title}
-
  h1 Editing #{user.title}'s Product
  form(method="POST" action="/view/"+user._id+ "?_method=PUT") 
   label(for='title') Product Title:
